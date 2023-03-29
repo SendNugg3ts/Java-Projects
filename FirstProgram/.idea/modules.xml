@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FirstProgram.iml" filepath="$PROJECT_DIR$/FirstProgram.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mosh2PartCourse/Mosh2PartCourse.iml" filepath="$PROJECT_DIR$/Mosh2PartCourse/Mosh2PartCourse.iml" />
+    </modules>
+  </component>
+</project>
