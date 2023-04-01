@@ -8,8 +8,10 @@ import java.awt.*;
 
 
 public class GameBG extends JPanel {
+    private Color color = Color.magenta;
     private MouseInputs mouseInputs;
-    private int xDelta = 0, yDelta =0;
+    private float xDelta = 0, yDelta =0;
+    private float xDir = 1f, yDir = 1f;
     private KeyboardInputs keyboardinputs;
     public GameBG(){
         mouseInputs = new MouseInputs(this);
@@ -21,19 +23,34 @@ public class GameBG extends JPanel {
     }
     public void changexDelta(int x){
         this.xDelta += x;
-        repaint();
+
     }
     public void changeyDelta(int y){
         this.yDelta += y;
-        repaint();
+
     }
     public void setRectPos(int x, int y){
         this.xDelta = x;
         this.yDelta = y;
-        repaint();
+
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.fillRect(xDelta,yDelta,200,50);
+        updateRect();
+        g.setColor(color);
+        g.fillRect((int)xDelta,(int)yDelta,200,50);
+    }
+//Makes the rectangle change color when he hits a wall as well as movement
+    private void updateRect() {
+        xDelta += xDir;
+        if(xDelta > 400 || xDelta <0){
+            color = Color.blue;
+            xDir *= -1;
+        }
+        yDelta += yDir;
+        if(yDelta > 400 || yDelta <0){
+            color = Color.magenta;
+            yDir *= -1;
+        }
     }
 }
