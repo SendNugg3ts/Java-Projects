@@ -11,62 +11,36 @@ import static Utilz.Constant.PlayerConstants.*;
 
 public class MainCharacter extends MainEntity{
     private BufferedImage[][] animations = new BufferedImage[11][26];
-    private BufferedImage[] attackAnimation = new BufferedImage[20];
+    private BufferedImage[] attackAnimation = new BufferedImage[26];
     private boolean mooving=false, placingBomb = false;
     private boolean up, down, left, right;
     private int playerAction = RUN;
     private int animationTick, animationIndex,animationSpeed = 10;
     private float playerSpeed = 2.0f;
-    private Bomb bomb;
-    private boolean bombPlaced = false;
+    private double bombx, bomby;
     public MainCharacter(float x, float y){
         super(x,y);
         importImg();
-        bomb=new Bomb(0,0);
     }
     public void update(){
-        if (bombPlaced) {
-            bomb.update();
-            if (bomb.hasExploded()) {
-                bombPlaced = false;
-                bomb.reset();
-            }
-        } else {
-            updatePos();
-        }
+        updatePos();
         updateAnimation();
         setAnimation();
     }
 
     public void render(Graphics g){
         g.drawImage(animations[playerAction][animationIndex],(int)x,(int) y,250,200,null);
-        if (placingBomb && !bombPlaced) {
-            bomb = new Bomb((int)x, (int)y);
-            bombPlaced = true;
-        }
-        if (bombPlaced && bomb != null) {
-            if (!bomb.hasExploded()) {
-                bomb.update();
-                bomb.render(g);
-            } else {
-                bombPlaced = false;
-                bomb.reset();
-            }
-        }
-        if (playerAction == ATTACK) {
+
+        if (placingBomb) {
             attackAnimation[animationIndex] = animations[11][animationIndex];
-            g.drawImage(attackAnimation[animationIndex], (int) 100, (int) 100, 250, 200, null);
-            PlacingBomb(false);
-            bombPlaced= false;
-            update();
-            g.drawImage(animations[playerAction][animationIndex],(int)x,(int) y,250,200,null);
+            g.drawImage(attackAnimation[animationIndex], (int) bombx, (int) bomby, 250, 200, null);
+        }else{
+            g.clipRect(100, 100, 250, 200);
         }
+
     }
-
-
     private void updatePos() {
         mooving=false;
-        if(!placingBomb){
             if(left && !right){
                 x -= playerSpeed;
                 mooving=true;
@@ -82,16 +56,14 @@ public class MainCharacter extends MainEntity{
                 mooving=true;
             }
         }
-    }
+
 
     private void setAnimation() {
         if(mooving){
             playerAction = RUN;
-        }else {
-            playerAction = IDLE;
         }
-        if(placingBomb){
-            playerAction=ATTACK;
+        else{
+            playerAction=IDLE;
         }
     }
 
@@ -137,13 +109,11 @@ public class MainCharacter extends MainEntity{
     }
 
     public void PlacingBomb(boolean placingBomb){
-        if (placingBomb && !bombPlaced) {
-            this.placingBomb = true;
-            bomb = new Bomb((int)x, (int)y);
-            bombPlaced = true;
-        } else {
-            this.placingBomb = false;
-        }
+        if(this.placingBomb){
+        this.placingBomb = false;}
+        else{this.placingBomb =placingBomb;
+        bombx=x;
+        bomby=y;}
     }
 
     public boolean isLeft() {
