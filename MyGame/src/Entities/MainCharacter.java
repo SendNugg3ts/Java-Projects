@@ -34,11 +34,14 @@ public class MainCharacter extends MainEntity{
         if (placingBomb) {
             attackAnimation[animationIndex] = animations[11][animationIndex];
             g.drawImage(attackAnimation[animationIndex], (int) bombx, (int) bomby, 250, 200, null);
-        }else{
-            g.clipRect(100, 100, 250, 200);
+            if(animationIndex == attackAnimation.length-1) {
+                placingBomb = false;
+                g.clipRect(100,100,250,200);
+            }
+            }
         }
 
-    }
+
     private void updatePos() {
         mooving=false;
             if(left && !right){
