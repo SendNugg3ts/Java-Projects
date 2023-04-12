@@ -15,8 +15,8 @@ public class MainCharacter extends MainEntity{
     private boolean mooving=false, placingBomb = false;
     private boolean up, down, left, right;
     private int playerAction = RUN;
-    private int animationTick, animationIndex,animationSpeed = 10;
-    private float playerSpeed = 2.0f;
+    private int animationTick, animationIndex,bombAnimationIndex = 0,animationSpeed = 20;
+    private float playerSpeed = 3.0f;
     private double bombx, bomby;
     public MainCharacter(float x, float y){
         super(x,y);
@@ -32,11 +32,11 @@ public class MainCharacter extends MainEntity{
         g.drawImage(animations[playerAction][animationIndex],(int)x,(int) y,250,200,null);
 
         if (placingBomb) {
-            attackAnimation[animationIndex] = animations[11][animationIndex];
-            g.drawImage(attackAnimation[animationIndex], (int) bombx, (int) bomby, 250, 200, null);
-            if(animationIndex == attackAnimation.length-1) {
-                placingBomb = false;
+            attackAnimation = animations[11];
+            g.drawImage(attackAnimation[bombAnimationIndex], (int) bombx, (int) bomby, 250, 200, null);
+            if(bombAnimationIndex == 19) {
                 g.clipRect(100,100,250,200);
+                placingBomb = false;
             }
             }
         }
@@ -78,6 +78,12 @@ public class MainCharacter extends MainEntity{
             if(animationIndex >= GetSpriteAmount(playerAction)){
                 animationIndex = 0;
             }
+            if (placingBomb) {
+                bombAnimationIndex++;
+                if (bombAnimationIndex >= 20) {
+                    bombAnimationIndex = 0;
+                }
+            }
         }
     }
     private void importImg() {
@@ -111,13 +117,18 @@ public class MainCharacter extends MainEntity{
         down = false;
     }
 
-    public void PlacingBomb(boolean placingBomb){
-        if(this.placingBomb){
-        this.placingBomb = false;}
-        else{this.placingBomb =placingBomb;
-        bombx=x;
-        bomby=y;}
+    public void PlacingBomb(boolean placingBomb) {
+        if (this.placingBomb == placingBomb) {
+            return; // Bomb placement state already set, no need to update.
+        }
+        this.placingBomb = placingBomb;
+        bombx = x;
+        bomby = y;
+        if (placingBomb) {
+            bombAnimationIndex = 0;
+        }
     }
+
 
     public boolean isLeft() {
         return left;
