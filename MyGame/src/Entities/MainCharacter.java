@@ -8,6 +8,7 @@ import java.io.InputStream;
 
 
 import static Utilz.Constant.PlayerConstants.*;
+import static main.Game.SCALE;
 
 public class MainCharacter extends MainEntity{
     private BufferedImage[][] animations = new BufferedImage[11][26];
@@ -16,10 +17,10 @@ public class MainCharacter extends MainEntity{
     private boolean up, down, left, right;
     private int playerAction = RUN;
     private int animationTick, animationIndex,bombAnimationIndex = 0,animationSpeed = 20;
-    private float playerSpeed = 3.0f;
+    private float playerSpeed = 2.0f;
     private double bombx, bomby;
-    public MainCharacter(float x, float y){
-        super(x,y);
+    public MainCharacter(float x, float y, int width, int height){
+        super(x,y, width, height);
         importImg();
     }
     public void update(){
@@ -29,11 +30,11 @@ public class MainCharacter extends MainEntity{
     }
 
     public void render(Graphics g){
-        g.drawImage(animations[playerAction][animationIndex],(int)x,(int) y,250,200,null);
+        g.drawImage(animations[playerAction][animationIndex],(int)x,(int) y,(int) (60 * SCALE), (int) (60 * SCALE),null);
 
         if (placingBomb) {
             attackAnimation = animations[11];
-            g.drawImage(attackAnimation[bombAnimationIndex], (int) bombx, (int) bomby, 250, 200, null);
+            g.drawImage(attackAnimation[bombAnimationIndex], (int) bombx, (int) bomby,(int) (60 * SCALE), (int) (60 * SCALE), null);
             if(bombAnimationIndex == 19) {
                 g.clipRect(100,100,250,200);
                 placingBomb = false;

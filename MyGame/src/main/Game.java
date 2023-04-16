@@ -1,6 +1,7 @@
 package main;
 
 import Entities.MainCharacter;
+import levels.LevelManager;
 
 import java.awt.*;
 
@@ -11,6 +12,14 @@ public class Game implements Runnable {
     private final int GAME_FPS = 120;
     private final int GAME_UPS = 200;
     private MainCharacter player;
+    private LevelManager levelManager;
+    public final static int TILES_DEFAULT_SIZE = 32;
+    public final static float SCALE = 2f;
+    public final static int TILES_IN_WIDTH = 26;
+    public final static int TILES_IN_HEIGHT = 14;
+    public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
+    public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
+    public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
     public Game() {
         initClasses();
@@ -22,7 +31,8 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
-        player = new MainCharacter(200, 200);
+        player = new MainCharacter(150, 520, (int) (60 * SCALE), (int) (60 * SCALE));
+        levelManager = new LevelManager(this);
     }
 
     private void startGameLoop() {
@@ -32,9 +42,11 @@ public class Game implements Runnable {
 
     public void update() {
         player.update();
+        levelManager.update();
     }
 
     public void render(Graphics g) {
+        levelManager.draw(g);
         player.render(g);
 
     }

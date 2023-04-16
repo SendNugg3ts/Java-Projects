@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static Utilz.Constant.PlayerConstants.*;
+import static main.Game.SCALE;
 
 public class Bomb extends MainEntity {
     private BufferedImage[] bombAnimation = new BufferedImage[20];
@@ -17,8 +18,8 @@ public class Bomb extends MainEntity {
     private float explosionRadius = 100;
     private long detonationTime;
 
-    public Bomb(float x, float y){
-        super(x,y);
+    public Bomb(float x, float y, int width, int height){
+        super(x,y, width, height);
         importImg();
     }
 
@@ -27,7 +28,7 @@ public class Bomb extends MainEntity {
     }
 
     public void render(Graphics g){
-        g.drawImage(bombAnimation[animationIndex], (int) x, (int) y, 250, 200, null);
+        g.drawImage(bombAnimation[animationIndex], (int) x, (int) y, (int) (64 * SCALE), (int) (40 * SCALE), null);
     }
 
     private void updateAnimation() {

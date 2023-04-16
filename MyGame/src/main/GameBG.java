@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
+
 public class GameBG extends JPanel {
     private MouseInputs mouseInputs;
     private KeyboardInputs keyboardinputs;
@@ -21,7 +22,7 @@ public class GameBG extends JPanel {
 
     }
     private void setBGSize() {
-        Dimension size = new Dimension(1280, 800);
+        Dimension size = new Dimension(Game.GAME_WIDTH, Game.GAME_HEIGHT);
         setMinimumSize(size);
         setPreferredSize(size);
         setMaximumSize(size);
