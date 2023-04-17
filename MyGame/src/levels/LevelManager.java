@@ -73,6 +73,9 @@ public class LevelManager {
         }
         return lvlData;
     }
+    public Level getCurrentLevel(){
+        return levelOne;
+    }
 }
 
 
