@@ -24,7 +24,10 @@
 ## About The Project
 
 2D Game like the old school bomber man, infinite game with a highscore counter, just survive as much time as you can and use your bombs to kill enemies.
-![image](https://drive.google.com/file/d/1rt1PT-nWThl0vTsBxQSugwVbHIvEsTd_/view)
+<br>
+<br>
+<img src="https://drive.google.com/uc?id=1rt1PT-nWThl0vTsBxQSugwVbHIvEsTd_" style="width: 500px; max-width: 100%; height: auto" />
+
 
 
 
